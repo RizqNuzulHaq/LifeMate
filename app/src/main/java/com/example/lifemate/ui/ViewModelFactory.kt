@@ -1,28 +1,26 @@
 package com.example.lifemate.ui
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.example.lifemate.model.UserPreference
-import com.example.lifemate.ui.login.LoginViewModel
-import com.example.lifemate.ui.main.MainViewModel
-import com.example.lifemate.ui.profile.ProfileViewModel
-import com.example.lifemate.ui.register.RegisterViewModel
-
-class ViewModelFactory(private val pref: UserPreference) : ViewModelProvider.NewInstanceFactory()  {
-
+class ViewModelFactory private constructor(
+    private val pref: UserPreferences,
+) :
+    ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
-    override fun<T : ViewModel> create(modelClass: Class<T>): T{
-        return when{
-            modelClass.isAssignableFrom(MainViewModel::class.java) -> {
-                MainViewModel(pref) as T
-            }
-            modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
-                LoginViewModel(pref) as T
-            }
-            modelClass.isAssignableFrom(RegisterViewModel::class.java)->{
-                RegisterViewModel(pref) as T
-            }
-            else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
+            return UserViewModel(pref) as T
         }
+        throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
+    }
+
+
+    companion object {
+        @Volatile
+        private var instance: ViewModelFactory? = null
+        fun getInstance(context: Context): ViewModelFactory =
+            instance ?: synchronized(this) {
+                instance ?: ViewModelFactory(
+                    Injection.providePreferences(context),
+                )
+            }.also { instance = it }
     }
 }

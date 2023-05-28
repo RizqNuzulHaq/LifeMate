@@ -1,6 +1,5 @@
 package com.example.lifemate.data.response
 
-import android.os.Message
 import com.google.gson.annotations.SerializedName
 
 data class LoginResponse(
