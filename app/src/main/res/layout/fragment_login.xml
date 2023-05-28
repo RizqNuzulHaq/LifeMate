@@ -12,7 +12,7 @@
         android:layout_width="175dp"
         android:layout_height="175dp"
         android:src="@drawable/logo_lifemate"
-        android:layout_marginTop="86dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,74 +24,61 @@
         android:layout_marginHorizontal="16dp"
         android:text="Login"
         android:textSize="20sp"
+        android:textColor="@color/dark_green"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo_lifemate" />
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="8dp"
-        app:cardCornerRadius="10dp"
-        android:elevation="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/custom_shadow_background"
+            android:elevation="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="16dp"
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edtl_email"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
+            <com.example.lifemate.ui.customview.EmailEditText
+                android:id="@+id/edt_email"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
+                android:layout_height="55dp"
                 android:layout_marginTop="16dp"
-                app:startIconDrawable="@drawable/baseline_email_24">
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:paddingHorizontal="16dp"
+                android:drawablePadding="12dp"
+                android:background="@drawable/custom_edit_text"
+                android:drawableStart="@drawable/baseline_email_24"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Email"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edtl_pass"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <com.example.lifemate.ui.customview.PwEditText
+                android:id="@+id/edt_pass"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="8dp"
-                app:passwordToggleEnabled="true"
-                app:startIconDrawable="@drawable/baseline_lock_24">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_pass"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    app:passwordToggleEnabled="true"
-                    android:hint="Password"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="55dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:paddingHorizontal="16dp"
+                android:drawablePadding="12dp"
+                android:inputType="textPassword"
+                android:background="@drawable/custom_edit_text"
+                android:drawableStart="@drawable/baseline_lock_24" />
 
             <Button
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="Sign in"
-                android:layout_marginTop="16dp"
-                android:textSize="15sp"
+                android:layout_height="55dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:enabled="true" />
+                android:enabled="true"
+                android:text="Sign in"
+                android:textSize="15sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -103,27 +90,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Doesn't have an account yet?"
-                    android:textSize="14sp"
                     android:textColor="@color/dark_green"
-                    android:textStyle="bold"/>
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/tv_register"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sign up"
-                    android:textSize="14sp"
-                    android:textColor="@color/light_green"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
-                    android:layout_marginBottom="16dp"
                     android:layout_marginStart="3dp"
+                    android:layout_marginBottom="16dp"
                     android:clickable="true"
-                    android:focusable="true" />
+                    android:focusable="true"
+                    android:text="Sign up"
+                    android:textAlignment="center"
+                    android:textColor="@color/light_green"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
 
     <ProgressBar
         android:id="@+id/progressBar"

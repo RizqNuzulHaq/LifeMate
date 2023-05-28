@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.util.Log
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -59,6 +60,7 @@ class LoginFragment : Fragment() {
         }
 
         binding.btnLogin.setOnClickListener {
+
             val email = binding.edtEmail.text.toString()
             val password = binding.edtPass.text.toString()
 
@@ -66,19 +68,32 @@ class LoginFragment : Fragment() {
             val isValidPassword = validatePassword(password)
 
             if (isValidEmail && isValidPassword) {
-                Log.d("test", "test")
-                authViewModel.loginResponse(email, password)
+                Intent(requireActivity(), MainActivity::class.java).also {
+                    it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(it)
+                }
+//                Log.d("test", "test")
+//
+//                authViewModel.loginResponse(email, password)
             }
 
+        }
+
+        binding.tvRegister.setOnClickListener{
+            parentFragmentManager.beginTransaction().apply {
+                replace(R.id.container, RegisterFragment(), RegisterFragment::class.java.simpleName)
+                commit()
+            }
         }
     }
 
     private fun validateEmail(email: String): Boolean {
         if (email.isEmpty()) {
-            binding.edtlEmail.error = "Email cannot be empty"
+            binding.edtEmail.error = "Email cannot be empty"
             return false
         }
-        if (!email.matches(EmailEditText.emailPattern)) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            binding.edtEmail.error = "Email format wrong"
             return false
         }
         return true
@@ -86,10 +101,11 @@ class LoginFragment : Fragment() {
 
     private fun validatePassword(password: String): Boolean {
         if (password.isEmpty()) {
-            binding.edtlPass.error = "Password cannot be empty"
+            binding.edtPass.error = "Password cannot be empty"
             return false
         }
-        if (password.length < 6) {
+        if (password.length < 8) {
+            binding.edtPass.error = "Password must atleast 8 character long"
             return false
         }
         return true
