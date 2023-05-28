@@ -11,11 +11,13 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.lifemate.R
 import com.example.lifemate.databinding.FragmentRegisterBinding
+import kotlinx.coroutines.NonDisposableHandle.parent
 
 class RegisterFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
 
     private lateinit var binding: FragmentRegisterBinding
+    private var genderText: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -47,10 +49,20 @@ class RegisterFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
 
         binding.btnLogin.setOnClickListener{
-
+            validateGender(genderText,gender)
         }
 
 
+    }
+
+    private fun validateGender(sex: String, gender:Array<String>): Boolean{
+        return if(sex == gender[0]){
+            binding.genderSpinner.setBackgroundResource(R.drawable.custom_error_edit_text)
+            false
+        }else{
+            binding.genderSpinner.setBackgroundResource(R.drawable.custom_edit_text)
+            true
+        }
     }
 
     private fun validateEmail(email: String): Boolean {
@@ -80,8 +92,8 @@ class RegisterFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        val text: String = parent?.getItemAtPosition(position).toString()
-        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
+        genderText = parent?.getItemAtPosition(position).toString()
+        //Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
