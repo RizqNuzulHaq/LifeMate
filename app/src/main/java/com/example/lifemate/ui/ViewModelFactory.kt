@@ -1,5 +1,12 @@
 package com.example.lifemate.ui
 
+import android.content.Context
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.lifemate.di.Injection
+import com.example.lifemate.ui.authentication.UserViewModel
+import com.example.lifemate.utils.UserPreferences
+
 class ViewModelFactory private constructor(
     private val pref: UserPreferences,
 ) :

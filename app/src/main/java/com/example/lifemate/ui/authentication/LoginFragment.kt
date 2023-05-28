@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.example.lifemate.MainActivity
+import com.example.lifemate.ui.main.MainActivity
 import com.example.lifemate.R
 import com.example.lifemate.databinding.FragmentLoginBinding
 import com.example.lifemate.ui.ViewModelFactory

@@ -1,4 +1,4 @@
-package com.example.lifemate.ui.dashboard
+package com.example.lifemate.ui.history
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
