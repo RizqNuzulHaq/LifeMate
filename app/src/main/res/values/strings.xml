@@ -4,10 +4,11 @@
     <string name="title_history">History</string>
     <string name="title_profile">Profile</string>
     <string-array name="gender">
-        <item>Choose your gender...</item>
+        <item>Choose your gender…</item>
         <item>Male</item>
         <item>Female</item>
     </string-array>
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="greeting">Hi %s,\ni can help you to check your health this week.</string>
 </resources>
