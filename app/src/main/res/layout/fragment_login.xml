@@ -53,6 +53,7 @@
                 android:layout_marginEnd="16dp"
                 android:paddingHorizontal="16dp"
                 android:drawablePadding="12dp"
+                android:inputType="textEmailAddress"
                 android:background="@drawable/custom_edit_text"
                 android:drawableStart="@drawable/baseline_email_24"/>
 
@@ -77,12 +78,14 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:enabled="true"
+                android:background="@drawable/custom_green_button"
                 android:text="Sign in"
                 android:textSize="15sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:layout_marginBottom="16dp"
                 android:gravity="center_horizontal">
 
@@ -91,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:text="Doesn't have an account yet?"
                     android:textColor="@color/dark_green"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -105,7 +108,7 @@
                     android:text="Sign up"
                     android:textAlignment="center"
                     android:textColor="@color/light_green"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
