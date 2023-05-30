@@ -27,6 +27,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        (activity as AppCompatActivity).supportActionBar?.hide()
         return binding.root
     }
 
@@ -38,5 +39,9 @@ class HomeFragment : Fragment() {
         binding.tvGreet.setText(text)
 
 
+
+
     }
+
+
 }
