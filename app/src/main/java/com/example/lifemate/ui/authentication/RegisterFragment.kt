@@ -48,7 +48,7 @@ class RegisterFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
 
 
-        binding.btnLogin.setOnClickListener{
+        binding.btnRegister.setOnClickListener{
             validateGender(genderText,gender)
         }
 
