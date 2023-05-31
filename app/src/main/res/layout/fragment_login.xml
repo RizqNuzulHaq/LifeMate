@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.authentication.LoginFragment">
 
-
     <ImageView
         android:id="@+id/logo_lifemate"
         android:layout_width="175dp"
@@ -57,18 +56,26 @@
                 android:background="@drawable/custom_edit_text"
                 android:drawableStart="@drawable/baseline_email_24"/>
 
-            <com.example.lifemate.ui.customview.PwEditText
-                android:id="@+id/edt_pass"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edtl_pass"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:paddingHorizontal="16dp"
-                android:drawablePadding="12dp"
-                android:inputType="textPassword"
-                android:background="@drawable/custom_edit_text"
-                android:drawableStart="@drawable/baseline_lock_24" />
+                app:passwordToggleEnabled="false"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.example.lifemate.ui.customview.PwEditText
+                    android:id="@+id/edt_pass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="16dp"
+                    android:drawablePadding="12dp"
+                    android:inputType="textPassword"
+                    android:background="@drawable/custom_edit_text"
+                    android:drawableStart="@drawable/baseline_lock_24" />
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <Button
                 android:id="@+id/btn_login"
@@ -127,8 +134,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
-
-
+        tools:visibility="visible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

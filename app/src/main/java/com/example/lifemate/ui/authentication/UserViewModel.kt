@@ -20,7 +20,8 @@ class UserViewModel (private val pref: UserPreferences): ViewModel(){
         }
     }
 
-    fun getUserToken(): LiveData<String> {
+    fun getUserToken() : LiveData<String>{
         return pref.getUserToken().asLiveData()
     }
+
 }

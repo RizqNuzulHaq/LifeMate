@@ -11,16 +11,23 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.lifemate.R
 import com.example.lifemate.databinding.FragmentLoginBinding
 import com.example.lifemate.databinding.FragmentProfileBinding
+import com.example.lifemate.ui.ViewModelFactory
+import com.example.lifemate.ui.authentication.UserViewModel
 import com.example.lifemate.ui.main.MainActivity
 import com.example.lifemate.ui.personaldata.PersonalDataActivity
 
 class ProfileFragment : Fragment() {
 
-    private lateinit var binding: FragmentProfileBinding
+    private var _binding: FragmentProfileBinding? = null
+    private val binding get() = _binding!!
+    private val profileViewModel by viewModels<ProfileViewModel> {
+        ViewModelFactory.getInstance(requireActivity())
+    }
 
 
     override fun onCreateView(
@@ -28,7 +35,7 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentProfileBinding.inflate(inflater, container, false)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
         (activity as AppCompatActivity).supportActionBar?.hide()
         return binding.root
     }
@@ -42,11 +49,14 @@ class ProfileFragment : Fragment() {
             }
         }
 
-
-
+        binding.btnLogout.setOnClickListener{
+            profileViewModel.clearUserPref()
+        }
 
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+    }
 
 }

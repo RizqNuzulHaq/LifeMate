@@ -1,5 +1,6 @@
 package com.example.lifemate.ui.authentication
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Patterns
 import androidx.fragment.app.Fragment
@@ -12,9 +13,10 @@ import android.widget.Toast
 import com.example.lifemate.R
 import com.example.lifemate.databinding.FragmentRegisterBinding
 import kotlinx.coroutines.NonDisposableHandle.parent
+import java.text.SimpleDateFormat
+import java.util.*
 
 class RegisterFragment : Fragment(), AdapterView.OnItemSelectedListener {
-
 
     private lateinit var binding: FragmentRegisterBinding
     private var genderText: String = ""
@@ -46,7 +48,7 @@ class RegisterFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.genderSpinner.adapter = arrayAdapter
         binding.genderSpinner.onItemSelectedListener = this
 
-
+        setDate()
 
         binding.btnRegister.setOnClickListener{
             validateGender(genderText,gender)
@@ -89,6 +91,31 @@ class RegisterFragment : Fragment(), AdapterView.OnItemSelectedListener {
             return false
         }
         return true
+    }
+
+    private fun setDate(){
+        var calendar = Calendar.getInstance()
+
+        val month = calendar.get(Calendar.MONTH)
+        val year = calendar.get(Calendar.YEAR)
+        val date = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datepicker = DatePickerDialog.OnDateSetListener{ view, year, month, dayOfMonth ->
+            calendar.set(Calendar.YEAR, year)
+            calendar.set(Calendar.MONTH, month)
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            updateLable(calendar)
+        }
+
+        binding!!.edtBirthdate.setOnClickListener{
+            DatePickerDialog(requireActivity(), datepicker, year, month, date).show()
+        }
+    }
+
+    private fun updateLable(calendar: Calendar){
+        val myFormat = "yyyy-MM-dd"
+        val sdf = SimpleDateFormat(myFormat, Locale.UK)
+        binding!!.edtBirthdate.setText(sdf.format(calendar.time))
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

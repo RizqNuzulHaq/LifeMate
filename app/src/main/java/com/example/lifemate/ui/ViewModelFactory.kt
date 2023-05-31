@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.lifemate.di.Injection
 import com.example.lifemate.ui.authentication.UserViewModel
+import com.example.lifemate.ui.main.MainViewModel
+import com.example.lifemate.ui.profile.ProfileViewModel
 import com.example.lifemate.utils.UserPreferences
 
 class ViewModelFactory private constructor(
@@ -13,10 +15,21 @@ class ViewModelFactory private constructor(
     ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
-            return UserViewModel(pref) as T
+        return when{
+            modelClass.isAssignableFrom(MainViewModel::class.java) -> {
+                MainViewModel(pref) as T
+            }
+            modelClass.isAssignableFrom(UserViewModel::class.java) -> {
+                UserViewModel(pref) as T
+            }
+            modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
+                ProfileViewModel(pref) as T
+            }
+            else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
-        throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
+        /*if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
+            return UserViewModel(pref) as T
+        }*/
     }
 
 

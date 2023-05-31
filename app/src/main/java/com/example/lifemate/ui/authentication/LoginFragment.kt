@@ -2,6 +2,8 @@ package com.example.lifemate.ui.authentication
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.transition.TransitionInflater
 import android.util.Log
 import android.util.Patterns
@@ -9,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.lifemate.ui.main.MainActivity
 import com.example.lifemate.R
@@ -45,10 +48,6 @@ class LoginFragment : Fragment() {
             )
         }
 
-        authViewModel.isLoading.observe(viewLifecycleOwner) {
-            showLoading(it)
-        }
-
         userViewModel.getUserToken().observe(viewLifecycleOwner) { token ->
             if (token != "token") {
 
@@ -59,6 +58,26 @@ class LoginFragment : Fragment() {
             }
         }
 
+        binding!!.edtPass.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if(s.toString().isNotEmpty()){
+                    if(s.toString().length < 8){
+                        binding!!.edtlPass.setPasswordVisibilityToggleEnabled(false)
+                    }else{
+                        binding!!.edtlPass.setPasswordVisibilityToggleEnabled(true)
+                    }
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+        })
+
         binding.btnLogin.setOnClickListener {
 
             val email = binding.edtEmail.text.toString()
@@ -68,15 +87,18 @@ class LoginFragment : Fragment() {
             val isValidPassword = validatePassword(password)
 
             if (isValidEmail && isValidPassword) {
-                Intent(requireActivity(), MainActivity::class.java).also {
-                    it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(it)
-                }
 //                Log.d("test", "test")
-//
-//                authViewModel.loginResponse(email, password)
+                authViewModel.loginResponse(email, password)
             }
 
+        }
+
+        authViewModel.isError.observe(viewLifecycleOwner){
+            Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+        }
+
+        authViewModel.isLoading.observe(viewLifecycleOwner) {
+            showLoading(it)
         }
 
         binding.tvRegister.setOnClickListener{
@@ -111,9 +133,7 @@ class LoginFragment : Fragment() {
         return true
     }
 
-    private fun showLoading(state: Boolean) {
-        binding.progressBar.visibility = if (state) View.VISIBLE else View.GONE
-    }
+    private fun showLoading(isLoading: Boolean) {binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE}
 
     companion object {
         fun newInstance() = LoginFragment()
