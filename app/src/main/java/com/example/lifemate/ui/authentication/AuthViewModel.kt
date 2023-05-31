@@ -26,25 +26,30 @@ class AuthViewModel: ViewModel() {
     val isError: LiveData<String> = _isError
 
     fun loginResponse(email: String,password: String){
-        _isLoading.postValue(true)
+        _isLoading.value = true
         val client = ApiConfig.getApiService().login(email, password)
         client.enqueue(object : Callback<LoginResponse> {
             override fun onResponse(
                 call: Call<LoginResponse>,
                 response: Response<LoginResponse>
             ) {
-                _isLoading.postValue(false)
+                _isLoading.value = false
                 if(response.isSuccessful){
-                    _loginResult.postValue(response.body())
-                }else{
-                    _isError.postValue("ERROR ${response.code()} : ${response.message()}")
-                    Log.e(TAG, "onFailure: ${response.message()}")
+                    val responseBody = response.body()
+                    if(responseBody != null && responseBody.message.equals("Login successful")){
+                        _loginResult.postValue(response.body())
+                        _isError.value = "Login Berhasil"
+                    }
+                    else{
+//                        _isError.value = "ERROR ${response.code()} : ${response.message()}"
+                        _isError.value = "password atau email salah"
+                        Log.e(TAG, "onFailure: ${response.message()}")
+                    }
                 }
-
             }
 
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                _isLoading.postValue(false)
+                _isLoading.value = false
                 _isError.postValue(t.message)
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }

@@ -2,10 +2,7 @@ package com.example.lifemate.utils
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.intPreferencesKey
-import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.lifemate.ui.authentication.UserViewModel
 import kotlinx.coroutines.flow.Flow
@@ -15,8 +12,21 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "us
 class UserPreferences private constructor(private val dataStore: DataStore<Preferences>){
     private val token = stringPreferencesKey("Token")
     private val uid = intPreferencesKey("UID")
+    private val isLogin = booleanPreferencesKey("false")
 
+    fun getUser(): Flow<Any>{
+        return dataStore.data.map {
+            it[token] ?: "token"
+            it[isLogin] ?: false
+        }
+    }
 
+    suspend fun login(token: String){
+        dataStore.edit {
+            it[this.token] = token
+            it[isLogin] = true
+        }
+    }
 
     fun getUserToken(): Flow<String> = dataStore.data.map { it[token] ?: "token" }
 
@@ -24,7 +34,6 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
         dataStore.edit { preferences ->
             preferences[token] = tokenUser
             preferences[uid] = uidUser
-
         }
     }
 
