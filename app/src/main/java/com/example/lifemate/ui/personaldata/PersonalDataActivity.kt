@@ -11,12 +11,13 @@ import com.example.lifemate.databinding.ActivityMainBinding
 import com.example.lifemate.databinding.ActivityPersonalDataBinding
 
 class PersonalDataActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
-    private lateinit var binding: ActivityPersonalDataBinding
+    private var _binding: ActivityPersonalDataBinding? = null
+    private val binding get() = _binding!!
     private var genderText: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityPersonalDataBinding.inflate(layoutInflater)
+        _binding = ActivityPersonalDataBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val gender = resources.getStringArray(R.array.gender)
@@ -32,5 +33,10 @@ class PersonalDataActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         TODO("Not yet implemented")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

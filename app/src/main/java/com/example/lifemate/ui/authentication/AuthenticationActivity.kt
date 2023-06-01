@@ -7,11 +7,12 @@ import com.example.lifemate.databinding.ActivityAuthenticationBinding
 
 class AuthenticationActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAuthenticationBinding
+    private var _binding: ActivityAuthenticationBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAuthenticationBinding.inflate(layoutInflater)
+        _binding = ActivityAuthenticationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         supportActionBar?.hide()
@@ -24,5 +25,10 @@ class AuthenticationActivity : AppCompatActivity() {
                 .commit()
         }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
